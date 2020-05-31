@@ -6,7 +6,7 @@ const db = require('./app/models');
 const app = express();
 
 const whiteList = [
-  'http://localhost:8000',
+  'http://localhost:8081',
 ];
 
 const corsOption = {

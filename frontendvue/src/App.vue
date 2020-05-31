@@ -20,7 +20,7 @@
               <router-link class="nav-link" to="/">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/posts">Posts</router-link>
+              <router-link class="nav-link" to="/add">Add</router-link>
             </li>
           </ul>
         </div>
@@ -32,9 +32,9 @@
       </router-view>
     </div>
 
-    <footer>
+    <!-- <footer>
       &copy; Copyright Wahyu Nur Fadillah
-    </footer>
+    </footer> -->
 
   </div>
 </template>

@@ -65,7 +65,7 @@ exports.update = (req, res) => {
   Post.update(req.body, {
     where: { id },
   }).then((result) => {
-    if (result === 1) {
+    if (result == 1) {
       res.send({
         message: 'Post was updated successfully',
       });

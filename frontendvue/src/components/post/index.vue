@@ -18,16 +18,20 @@
           <h1>Post List</h1>
         </div>
 
+        <div class="alert alert-danger" v-if="this.error" role="alert">
+            {{ this.error }}
+        </div>
+
         <div class="card mb-3"  v-for="(post, i) in posts" :key="i">
           <div class="card-body">
             <h3 class="card-title">{{ post.title }}</h3>
             <h6 class="text-muted card-subtitle mb-2">{{ post.published ? 'Published' : 'Unpublished' }}</h6>
             <div class="card-text mb-3">{{ post.description }}</div>
-            <a href="#" class="card-link">Edit</a>
+            <router-link :to="{ name: 'post-detail', params:{ id : post.id} }" class="card-link">Edit</router-link>
           </div>
         </div>
 
-        <button class="btn btn-danger btn-sm mb-4">Remove All</button>
+        <button class="btn btn-danger btn-sm mb-4" v-if="!isEmpty" @click="hendleDeleteAll()">Remove All</button>
 
       </div>
     </div>
@@ -41,7 +45,10 @@ export default {
   name: 'post',
   data () {
     return {
-      posts: []
+      error: '',
+      posts: [],
+      message: '',
+      isEmpty: false
     }
   },
   methods: {
@@ -49,11 +56,23 @@ export default {
       PostService.getAll()
         .then(result => {
           this.posts = result.data
-          console.log(result.data)
+          this.isEmpty = false
         })
         .catch(err => {
-          console.log(err)
+          this.error = err
         })
+    },
+    hendleDeleteAll () {
+      if (confirm('Apakah anda yakin akan menghapus semua post?')) {
+        PostService.deleteAll()
+          .then(result => {
+            this.message = result.data.message
+            this.isEmpty = true
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   },
   mounted () {
